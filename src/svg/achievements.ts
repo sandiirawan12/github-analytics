@@ -49,5 +49,6 @@ export function renderAchievementsCard(stats: AnalyticsResult, theme: Theme): st
     ariaLabel: `Achievements for ${stats.username}`,
     theme,
     body,
+    generatedAt: stats.generatedAt,
   });
 }

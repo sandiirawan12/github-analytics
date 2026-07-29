@@ -40,5 +40,6 @@ export function renderLanguagesCard(stats: AnalyticsResult, theme: Theme): strin
     ariaLabel: `Top languages for ${stats.username}`,
     theme,
     body,
+    generatedAt: stats.generatedAt,
   });
 }

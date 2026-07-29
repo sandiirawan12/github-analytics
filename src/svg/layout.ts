@@ -9,17 +9,23 @@ export interface CardFrameOptions {
   ariaLabel: string;
   theme: Theme;
   body: string;
+  generatedAt?: string;
 }
 
 export function renderCardFrame(options: CardFrameOptions): string {
-  const { width, height, title, subtitle, ariaLabel, theme, body } = options;
+  const { width, height, title, subtitle, ariaLabel, theme, body, generatedAt } = options;
   const px = theme.paddingX;
 
   const subtitleNode = subtitle
     ? `<text x="${width - px}" y="30" fill="${theme.label}" font-size="12" text-anchor="end">${escapeXml(subtitle)}</text>`
     : "";
 
+  const stamp = generatedAt
+    ? `<!-- generated-at: ${escapeXml(generatedAt)} -->`
+    : `<!-- generated-at: ${new Date().toISOString()} -->`;
+
   return `<?xml version="1.0" encoding="UTF-8"?>
+${stamp}
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(ariaLabel)}">
   <title>${escapeXml(title)}</title>
   <rect width="${width}" height="${height}" rx="${theme.radius}" fill="${theme.background}" stroke="${theme.border}"/>

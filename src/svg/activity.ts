@@ -127,6 +127,7 @@ export function renderActivityCard(
     ariaLabel: `Activity for ${stats.username}`,
     theme,
     body,
+    generatedAt: stats.generatedAt,
   });
 }
 

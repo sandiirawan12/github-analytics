@@ -31,5 +31,6 @@ export function renderStreakCard(stats: AnalyticsResult, theme: Theme): string {
     ariaLabel: `Streak for ${stats.username}`,
     theme,
     body,
+    generatedAt: stats.generatedAt,
   });
 }

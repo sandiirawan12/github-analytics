@@ -99,5 +99,6 @@ export function renderDashboardCard(
     ariaLabel: `GitHub dashboard for ${stats.username}`,
     theme,
     body,
+    generatedAt: stats.generatedAt,
   });
 }

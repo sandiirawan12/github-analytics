@@ -2,8 +2,8 @@ name: Generate Analytics
 
 on:
   schedule:
-    # 00:00 Asia/Jakarta (UTC+7)
-    - cron: "0 17 * * *"
+    # Every 6 hours (keeps cards fresh throughout the day)
+    - cron: "0 */6 * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -13,6 +13,10 @@ on:
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/generate.yml"
+
+concurrency:
+  group: generate-analytics
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -27,13 +31,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate SVG cards
+      - name: Generate SVG cards from live GitHub API
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
           GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME || github.repository_owner }}
@@ -60,16 +64,18 @@ jobs:
             cd -
           fi
 
-          # Replace published assets with the current core set only
-          rm -f "$PUBLISH_DIR"/*.svg "$PUBLISH_DIR"/stats.json
+          rm -f "$PUBLISH_DIR"/*.svg "$PUBLISH_DIR"/stats.json "$PUBLISH_DIR"/updated_at.txt
           cp output/*.svg output/stats.json "$PUBLISH_DIR/"
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > "$PUBLISH_DIR/updated_at.txt"
+
           cd "$PUBLISH_DIR"
           git add -A
 
+          # Always commit so CDN/camo caches see a new revision
           if git diff --staged --quiet; then
-            echo "No card changes to publish."
-            exit 0
+            echo "forced refresh $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> updated_at.txt
+            git add updated_at.txt
           fi
 
-          git commit -m "chore: update analytics cards"
+          git commit -m "chore: refresh analytics cards $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push origin HEAD:output

@@ -74,5 +74,6 @@ export function renderRepositoriesCard(
     ariaLabel: `Repositories for ${stats.username}`,
     theme,
     body: `${summary}${listHeader}${list}`,
+    generatedAt: stats.generatedAt,
   });
 }
