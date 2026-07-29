@@ -1,7 +1,15 @@
 {
   "name": "github-analytics",
   "version": "0.1.0",
-  "description": "Dashboard-first GitHub analytics SVGs — themes, YAML config, public + private stats via PAT",
+  "description": "Self-hosted GitHub profile analytics SVGs — fork, add GH_PAT, embed in your README",
+  "homepage": "https://github.com/sandiirawan12/github-analytics",
+  "bugs": {
+    "url": "https://github.com/sandiirawan12/github-analytics/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandiirawan12/github-analytics.git"
+  },
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
