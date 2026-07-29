@@ -2,7 +2,7 @@ theme: github
 
 timezone: Asia/Jakarta
 
-# All cards referenced by the profile README embed
+# Profile README card set — regenerated live by Actions every 6 hours
 cards:
   - dashboard
   - stats
