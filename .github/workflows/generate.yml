@@ -60,9 +60,9 @@ jobs:
             cd -
           fi
 
-          cp output/summary.svg output/languages.svg output/activity.svg output/stats.json "$PUBLISH_DIR/"
+          cp output/*.svg output/stats.json "$PUBLISH_DIR/"
           cd "$PUBLISH_DIR"
-          git add summary.svg languages.svg activity.svg stats.json
+          git add *.svg stats.json
 
           if git diff --staged --quiet; then
             echo "No card changes to publish."

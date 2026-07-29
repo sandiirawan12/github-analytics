@@ -36,6 +36,7 @@ export interface AnalyticsResult {
     total: number;
     byMonth: { month: string; count: number }[];
     byWeekday: { day: string; count: number }[];
+    byHour: { hour: number; count: number }[];
     calendar: DayContribution[];
   };
   languages: LanguageStat[];

@@ -1,40 +1,44 @@
 import type { AnalyticsResult } from "../analytics/types.js";
 import { clamp, escapeXml } from "../utils/index.js";
-import { theme } from "./theme.js";
+import { renderCardFrame, truncateText } from "./layout.js";
+import { CARD_WIDTH, theme } from "./theme.js";
 
 export function renderLanguagesCard(stats: AnalyticsResult): string {
-  const width = theme.width.languages;
+  const width = CARD_WIDTH.md;
   const languages = stats.languages;
-  const headerHeight = 48;
-  const rowHeight = 36;
-  const paddingX = 24;
-  const barMaxWidth = width - paddingX * 2 - 140;
-  const height = headerHeight + Math.max(languages.length, 1) * rowHeight + 24;
+  const px = theme.paddingX;
+  const nameWidth = 108;
+  const pctWidth = 52;
+  const rowHeight = 40;
+  const top = theme.headerHeight + 18;
+  const barX = px + nameWidth + 12;
+  const barMaxWidth = width - barX - pctWidth - px;
+  const height = top + Math.max(languages.length, 1) * rowHeight + 16;
 
-  const rows =
+  const body =
     languages.length === 0
-      ? `
-  <text x="${paddingX}" y="${headerHeight + 24}" fill="${theme.label}" font-size="13">No language data</text>`
+      ? `<text x="${px}" y="${top + 8}" fill="${theme.label}" font-size="13">No language data</text>`
       : languages
           .map((lang, index) => {
-            const y = headerHeight + 22 + index * rowHeight;
-            const barWidth = clamp((lang.percentage / 100) * barMaxWidth, 2, barMaxWidth);
+            const y = top + index * rowHeight;
+            const barWidth = Math.round(
+              clamp((lang.percentage / 100) * barMaxWidth, 2, barMaxWidth) * 10,
+            ) / 10;
+            const name = truncateText(lang.name, 12);
             return `
-  <text x="${paddingX}" y="${y}" fill="${theme.value}" font-size="13">${escapeXml(lang.name)}</text>
-  <rect x="${paddingX + 110}" y="${y - 11}" width="${barMaxWidth}" height="10" rx="3" fill="${theme.barTrack}"/>
-  <rect x="${paddingX + 110}" y="${y - 11}" width="${barWidth}" height="10" rx="3" fill="${escapeXml(lang.color)}"/>
-  <text x="${width - paddingX}" y="${y}" fill="${theme.label}" font-size="12" text-anchor="end">${lang.percentage}%</text>`;
+    <text x="${px}" y="${y + 14}" fill="${theme.value}" font-size="13">${escapeXml(name)}</text>
+    <rect x="${barX}" y="${y + 4}" width="${barMaxWidth}" height="12" rx="4" fill="${theme.barTrack}"/>
+    <rect x="${barX}" y="${y + 4}" width="${barWidth}" height="12" rx="4" fill="${escapeXml(lang.color)}"/>
+    <text x="${width - px}" y="${y + 14}" fill="${theme.label}" font-size="12" text-anchor="end">${lang.percentage}%</text>`;
           })
           .join("");
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Top languages for ${escapeXml(stats.username)}">
-  <title>Top Languages — ${escapeXml(stats.username)}</title>
-  <rect width="${width}" height="${height}" rx="8" fill="${theme.background}" stroke="${theme.border}"/>
-  <text x="${paddingX}" y="30" fill="${theme.title}" font-size="16" font-weight="700" font-family="${theme.fontFamily}">Top Languages</text>
-  <line x1="${paddingX}" y1="${headerHeight}" x2="${width - paddingX}" y2="${headerHeight}" stroke="${theme.border}"/>
-  <g font-family="${theme.fontFamily}">${rows}
-  </g>
-</svg>
-`;
+  return renderCardFrame({
+    width,
+    height,
+    title: "Top Languages",
+    subtitle: `@${stats.username}`,
+    ariaLabel: `Top languages for ${stats.username}`,
+    body,
+  });
 }

@@ -1,26 +1,51 @@
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { computeAnalytics } from "./analytics/index.js";
+import type { AnalyticsResult } from "./analytics/types.js";
 import { loadConfig } from "./config/env.js";
 import { fetchGitHubData, GitHubClient } from "./github/index.js";
 import { generateCards, writeCards } from "./svg/index.js";
 
+async function loadStatsFromFile(filePath: string): Promise<AnalyticsResult> {
+  const raw = JSON.parse(await readFile(filePath, "utf8")) as AnalyticsResult;
+  if (!raw.contributions.byHour) {
+    raw.contributions.byHour = Array.from({ length: 24 }, (_, hour) => ({ hour, count: 0 }));
+  }
+  return raw;
+}
+
 async function main(): Promise<void> {
-  const config = loadConfig();
-  const client = new GitHubClient(config.githubToken);
+  const fromStats = process.argv.includes("--from-stats");
+  const config = fromStats
+    ? {
+        githubToken: "",
+        githubUsername: "local",
+        timezone: process.env.TIMEZONE?.trim() || "UTC",
+        outputDir: process.env.OUTPUT_DIR?.trim() || "./output",
+      }
+    : loadConfig();
 
   console.log("GitHub Analytics");
   console.log("================");
-  console.log(`Username : ${config.githubUsername}`);
-  console.log(`Timezone : ${config.timezone}`);
+  console.log(`Mode     : ${fromStats ? "render-from-stats" : "fetch"}`);
   console.log(`Output   : ${config.outputDir}`);
   console.log("");
 
-  console.log("Fetching GitHub data...");
-  const data = await fetchGitHubData(client, config.githubUsername, config.timezone);
+  let stats: AnalyticsResult;
 
-  console.log("Computing analytics...");
-  const stats = computeAnalytics(data);
+  if (fromStats) {
+    const statsPath = path.join(config.outputDir, "stats.json");
+    console.log(`Loading ${statsPath}...`);
+    stats = await loadStatsFromFile(statsPath);
+  } else {
+    console.log(`Username : ${config.githubUsername}`);
+    console.log(`Timezone : ${config.timezone}`);
+    console.log("Fetching GitHub data...");
+    const client = new GitHubClient(config.githubToken);
+    const data = await fetchGitHubData(client, config.githubUsername, config.timezone);
+    console.log("Computing analytics...");
+    stats = computeAnalytics(data);
+  }
 
   console.log("Generating SVG cards...");
   const cards = generateCards(stats);

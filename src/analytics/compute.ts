@@ -45,6 +45,15 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
 
   const mostActiveWeekday = [...byWeekday].sort((a, b) => b.count - a.count)[0]?.day ?? "Monday";
 
+  const hourCounts = new Map<number, number>();
+  for (const hour of data.eventHours) {
+    hourCounts.set(hour, (hourCounts.get(hour) ?? 0) + 1);
+  }
+  const byHour = Array.from({ length: 24 }, (_, hour) => ({
+    hour,
+    count: hourCounts.get(hour) ?? 0,
+  }));
+
   return {
     username: data.login,
     generatedAt: new Date().toISOString(),
@@ -67,6 +76,7 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
       total: data.totalContributions,
       byMonth,
       byWeekday,
+      byHour,
       calendar: data.contributionDays.map((d) => ({
         date: d.date,
         count: d.contributionCount,

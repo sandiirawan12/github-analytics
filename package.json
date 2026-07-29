@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "generate": "tsx src/index.ts"
+    "generate": "tsx src/index.ts",
+    "render": "tsx src/index.ts --from-stats"
   },
   "keywords": [
     "github",
