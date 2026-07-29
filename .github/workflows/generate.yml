@@ -7,6 +7,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths-ignore:
+      - "output/**"
+      - "**.md"
 
 concurrency:
   group: generate-analytics
@@ -39,37 +42,19 @@ jobs:
           OUTPUT_DIR: ./output
         run: npm run generate
 
-      - name: Publish to output branch
-        env:
-          TOKEN: ${{ secrets.GH_PAT || github.token }}
+      - name: Commit cards to main
         run: |
           set -euo pipefail
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          PUBLISH_DIR=$(mktemp -d)
-          if git ls-remote --exit-code --heads origin output >/dev/null 2>&1; then
-            git clone --depth 1 --branch output "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PUBLISH_DIR"
-          else
-            git clone --depth 1 "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PUBLISH_DIR"
-            cd "$PUBLISH_DIR"
-            git checkout --orphan output
-            git rm -rf . >/dev/null 2>&1 || true
-            cd -
-          fi
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > output/updated_at.txt
+          git add output/*.svg output/stats.json output/updated_at.txt
 
-          rm -f "$PUBLISH_DIR"/*.svg "$PUBLISH_DIR"/stats.json "$PUBLISH_DIR"/updated_at.txt
-          cp output/*.svg output/stats.json "$PUBLISH_DIR/"
-          date -u +"%Y-%m-%dT%H:%M:%SZ" > "$PUBLISH_DIR/updated_at.txt"
-
-          cd "$PUBLISH_DIR"
-          git add -A
-
-          # Always commit so CDN/camo caches see a new revision
           if git diff --staged --quiet; then
-            echo "forced refresh $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> updated_at.txt
-            git add updated_at.txt
+            echo "forced refresh $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> output/updated_at.txt
+            git add output/updated_at.txt
           fi
 
-          git commit -m "chore: refresh analytics cards $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push origin HEAD:output
+          git commit -m "chore: refresh analytics cards [skip ci]"
+          git push origin HEAD:main

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated-at: 2026-07-29T19:05:31.083Z -->
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="400" viewBox="0 0 560 400" role="img" aria-label="Repositories for sandiirawan12">
+  <title>Repositories</title>
+  <rect width="560" height="400" rx="8" fill="#0d1117" stroke="#30363d"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="24" y="30" fill="#e6edf3" font-size="16" font-weight="700">Repositories</text>
+    <text x="536" y="30" fill="#8b949e" font-size="12" text-anchor="end">5 total</text>
+    <line x1="24" y1="52" x2="536" y2="52" stroke="#30363d"/>
+    
+    <rect x="24" y="68" width="119" height="64" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="36" y="92" fill="#8b949e" font-size="12">Public</text>
+    <text x="36" y="116" fill="#58a6ff" font-size="20" font-weight="700">5</text>
+    <rect x="155" y="68" width="119" height="64" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="167" y="92" fill="#8b949e" font-size="12">Private</text>
+    <text x="167" y="116" fill="#a371f7" font-size="20" font-weight="700">0</text>
+    <rect x="286" y="68" width="119" height="64" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="298" y="92" fill="#8b949e" font-size="12">Stars</text>
+    <text x="298" y="116" fill="#d29922" font-size="20" font-weight="700">0</text>
+    <rect x="417" y="68" width="119" height="64" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="429" y="92" fill="#8b949e" font-size="12">Forks</text>
+    <text x="429" y="116" fill="#58a6ff" font-size="20" font-weight="700">0</text><text x="24" y="150" fill="#e6edf3" font-size="12" font-weight="600">Top repositories</text>
+    <rect x="24" y="160" width="512" height="36" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="38" y="182" fill="#e6edf3" font-size="13" font-weight="600">github-analytics</text>
+    <text x="224" y="182" fill="#58a6ff" font-size="11">public</text>
+    <text x="294" y="182" fill="#8b949e" font-size="11">TypeScript</text>
+    <text x="522" y="182" fill="#8b949e" font-size="12" text-anchor="end">0 stars · 0 forks</text>
+    <rect x="24" y="204" width="512" height="36" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="38" y="226" fill="#e6edf3" font-size="13" font-weight="600">test-solutech-sandi</text>
+    <text x="224" y="226" fill="#58a6ff" font-size="11">public</text>
+    <text x="294" y="226" fill="#8b949e" font-size="11">TypeScript</text>
+    <text x="522" y="226" fill="#8b949e" font-size="12" text-anchor="end">0 stars · 0 forks</text>
+    <rect x="24" y="248" width="512" height="36" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="38" y="270" fill="#e6edf3" font-size="13" font-weight="600">TestUsahaKreatif_Leads</text>
+    <text x="224" y="270" fill="#58a6ff" font-size="11">public</text>
+    <text x="294" y="270" fill="#8b949e" font-size="11">TypeScript</text>
+    <text x="522" y="270" fill="#8b949e" font-size="12" text-anchor="end">0 stars · 0 forks</text>
+    <rect x="24" y="292" width="512" height="36" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="38" y="314" fill="#e6edf3" font-size="13" font-weight="600">TestKontenComKasbon</text>
+    <text x="224" y="314" fill="#58a6ff" font-size="11">public</text>
+    <text x="294" y="314" fill="#8b949e" font-size="11">TypeScript</text>
+    <text x="522" y="314" fill="#8b949e" font-size="12" text-anchor="end">0 stars · 0 forks</text>
+    <rect x="24" y="336" width="512" height="36" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="38" y="358" fill="#e6edf3" font-size="13" font-weight="600">sandiirawan12</text>
+    <text x="224" y="358" fill="#58a6ff" font-size="11">public</text>
+    <text x="294" y="358" fill="#8b949e" font-size="11">—</text>
+    <text x="522" y="358" fill="#8b949e" font-size="12" text-anchor="end">0 stars · 0 forks</text>
+  </g>
+</svg>

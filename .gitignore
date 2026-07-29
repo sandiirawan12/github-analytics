@@ -27,6 +27,6 @@ npm-debug.log*
 # Coverage
 coverage/
 
-# Output (generated files published to the `output` branch by Actions)
-output/*
-!output/.gitkeep
+# Keep generated cards on main (committed by Actions)
+# Ignore nothing under output/ except local noise
+output/.DS_Store

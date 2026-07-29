@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated-at: 2026-07-29T19:05:31.083Z -->
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="216" viewBox="0 0 420 216" role="img" aria-label="Streak for sandiirawan12">
+  <title>Streak</title>
+  <rect width="420" height="216" rx="8" fill="#0d1117" stroke="#30363d"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="24" y="30" fill="#e6edf3" font-size="16" font-weight="700">Streak</text>
+    <text x="396" y="30" fill="#8b949e" font-size="12" text-anchor="end">@sandiirawan12</text>
+    <line x1="24" y1="52" x2="396" y2="52" stroke="#30363d"/>
+    
+    <rect x="24" y="72" width="179" height="120" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="113.5" y="106" fill="#8b949e" font-size="13" text-anchor="middle">Current Streak</text>
+    <text x="113.5" y="150" fill="#3fb950" font-size="40" font-weight="700" text-anchor="middle">3</text>
+    <text x="113.5" y="174" fill="#8b949e" font-size="12" text-anchor="middle">days</text>
+
+    <rect x="217" y="72" width="179" height="120" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="306.5" y="106" fill="#8b949e" font-size="13" text-anchor="middle">Longest Streak</text>
+    <text x="306.5" y="150" fill="#58a6ff" font-size="40" font-weight="700" text-anchor="middle">11</text>
+    <text x="306.5" y="174" fill="#8b949e" font-size="12" text-anchor="middle">days</text>
+  
+  </g>
+</svg>
