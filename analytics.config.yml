@@ -1,8 +1,10 @@
-theme: github
+# The only personalization most people need:
+# leave empty to auto-use the GitHub repo owner (recommended for forks)
+username: ""
 
+theme: github
 timezone: Asia/Jakarta
 
-# Profile README card set — regenerated live by Actions every 6 hours
 cards:
   - dashboard
   - stats

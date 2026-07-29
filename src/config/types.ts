@@ -20,6 +20,8 @@ export interface ShowOptions {
 }
 
 export interface AnalyticsFileConfig {
+  /** GitHub login to analyze. Leave empty to auto-detect (Actions: repo owner). */
+  username: string;
   theme: ThemeName;
   timezone: string;
   cards: CardName[];
@@ -40,6 +42,7 @@ export const ALL_CARDS: CardName[] = [
 ];
 
 export const DEFAULT_FILE_CONFIG: AnalyticsFileConfig = {
+  username: "",
   theme: "github",
   timezone: "Asia/Jakarta",
   cards: [...ALL_CARDS],

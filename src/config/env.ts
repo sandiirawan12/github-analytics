@@ -20,12 +20,27 @@ function requireEnv(name: string): string {
   return value;
 }
 
+function resolveUsername(file: AnalyticsFileConfig): string {
+  const fromEnv = process.env.GITHUB_USERNAME?.trim();
+  if (fromEnv) return fromEnv;
+
+  const fromConfig = file.username?.trim();
+  if (fromConfig) return fromConfig;
+
+  const fromOwner = process.env.GITHUB_REPOSITORY_OWNER?.trim();
+  if (fromOwner) return fromOwner;
+
+  throw new Error(
+    'Missing GitHub username. Set `username` in analytics.config.yml, or GITHUB_USERNAME in .env.',
+  );
+}
+
 export async function loadAppConfig(): Promise<AppConfig> {
   const file = await loadFileConfig();
 
   return {
     githubToken: requireEnv("GITHUB_TOKEN"),
-    githubUsername: requireEnv("GITHUB_USERNAME"),
+    githubUsername: resolveUsername(file),
     timezone: process.env.TIMEZONE?.trim() || file.timezone,
     outputDir: process.env.OUTPUT_DIR?.trim() || file.output_dir,
     file,

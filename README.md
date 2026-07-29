@@ -8,52 +8,27 @@ Cards are written to [`output/`](./output) on **`main`** and refresh automatical
 
 ## Use this on your profile (for anyone)
 
-### 1. Fork this repository
+### Paling sederhana
 
-Click **Fork** → keep the repo name `github-analytics` (or any name; just update embed URLs later).
+1. **Fork** repo ini  
+2. Aktifkan **Actions**  
+3. Tambah secret **`GH_PAT`** (token dengan `repo` + `read:user`)  
+4. Jalankan workflow **Generate Analytics**  
+5. Embed SVG di profile README (ganti `YOUR_USERNAME` di URL)
 
-> After forking, open the **Actions** tab and click **I understand my workflows, go ahead and enable them**.
+**Username tidak perlu diubah** — otomatis pakai owner fork kamu.
 
-### 2. Create a Personal Access Token
+### Atau cukup ubah username di config
 
-Classic token (recommended for private stats):
+Kalau mau set manual, edit satu baris di [`analytics.config.yml`](analytics.config.yml):
 
-1. GitHub → **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)**
-2. Generate new token with scopes:
-   - `repo` (private repos + commit cards back to this repo)
-   - `read:user`
-3. Copy the token (shown once)
+```yaml
+username: your-github-username
+```
 
-Fine-grained token also works if it can read your repos/metadata and push to this analytics repo.
+Lalu run workflow. Theme/cards bisa dibiarkan default.
 
-### 3. Add the secret
-
-In **your fork**:
-
-**Settings → Secrets and variables → Actions → New repository secret**
-
-| Name | Value |
-|------|--------|
-| `GH_PAT` | the token from step 2 |
-
-Optional repository variables:
-
-| Name | Example | Purpose |
-|------|---------|---------|
-| `GITHUB_USERNAME` | `your-username` | defaults to fork owner |
-| `TIMEZONE` | `Asia/Jakarta` | productive-time hours |
-
-### 4. Run the workflow
-
-**Actions → Generate Analytics → Run workflow**
-
-Wait until it finishes. You should see updated files under `output/` on `main`.
-
-### 5. Embed in your profile README
-
-Create (or edit) the special repo: `https://github.com/YOUR_USERNAME/YOUR_USERNAME`
-
-Paste this (replace `YOUR_USERNAME` and repo name if different):
+> Catatan: statistik **private** hanya muncul jika `GH_PAT` milik akun yang punya akses private tersebut. Mengubah username orang lain tanpa PAT mereka = data publik saja.
 
 ```md
 # GitHub Analytics
@@ -92,33 +67,14 @@ Cards refresh every **6 hours** (and on source pushes / manual runs).
 
 ## Customize
 
-Edit [`analytics.config.yml`](analytics.config.yml) in your fork:
+[`analytics.config.yml`](analytics.config.yml):
 
 ```yaml
+username: "" # empty = auto (repo owner). Or set: your-github-username
+
 theme: tokyonight # github | tokyonight | dracula | catppuccin | nord
-
 timezone: Asia/Jakarta
-
-cards:
-  - dashboard
-  - stats
-  - streak
-  - activity
-  - languages
-  - productive-time
-  - repositories
-  - contributions
-  - achievements
-
-show:
-  private: true
-  stars: true
-  streak: true
-  productive_time: true
-  followers: true
 ```
-
-Remove a card from `cards:` if you do not want that SVG generated.
 
 ---
 

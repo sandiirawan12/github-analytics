@@ -52,6 +52,7 @@ function normalizeConfig(input: Partial<AnalyticsFileConfig>): AnalyticsFileConf
   }
 
   return {
+    username: input.username?.trim() || DEFAULT_FILE_CONFIG.username,
     theme,
     timezone: input.timezone?.trim() || DEFAULT_FILE_CONFIG.timezone,
     cards,

@@ -37,8 +37,11 @@ jobs:
       - name: Generate SVG cards from live GitHub API
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
-          GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME || github.repository_owner }}
-          TIMEZONE: ${{ vars.TIMEZONE || 'Asia/Jakarta' }}
+          # Optional overrides — empty means app uses analytics.config.yml
+          # then falls back to the repository owner automatically.
+          GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          TIMEZONE: ${{ vars.TIMEZONE }}
           OUTPUT_DIR: ./output
         run: npm run generate
 
