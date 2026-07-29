@@ -1,0 +1,9 @@
+# Users whose cards are generated into output/{username}/
+# Anyone can open an issue titled: add-user: their-username
+# Or submit a PR adding their login below.
+#
+# Others only need to put their username in their profile README embed URL.
+# Private stats require that user's own PAT — public stats work for everyone listed here.
+
+users:
+  - sandiirawan12

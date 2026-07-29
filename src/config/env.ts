@@ -20,18 +20,13 @@ function requireEnv(name: string): string {
   return value;
 }
 
+/** Optional single-user override; multi-user lists come from users.yml. */
 function resolveUsername(file: AnalyticsFileConfig): string {
-  const fromEnv = process.env.GITHUB_USERNAME?.trim();
-  if (fromEnv) return fromEnv;
-
-  const fromConfig = file.username?.trim();
-  if (fromConfig) return fromConfig;
-
-  const fromOwner = process.env.GITHUB_REPOSITORY_OWNER?.trim();
-  if (fromOwner) return fromOwner;
-
-  throw new Error(
-    'Missing GitHub username. Set `username` in analytics.config.yml, or GITHUB_USERNAME in .env.',
+  return (
+    process.env.GITHUB_USERNAME?.trim() ||
+    file.username?.trim() ||
+    process.env.GITHUB_REPOSITORY_OWNER?.trim() ||
+    ""
   );
 }
 
