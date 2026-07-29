@@ -1,0 +1,73 @@
+name: Generate Analytics
+
+on:
+  schedule:
+    # 00:00 Asia/Jakarta (UTC+7)
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/generate.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate SVG cards
+        env:
+          # Prefer a PAT with repo + read:user so private stats are included.
+          GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME || github.repository_owner }}
+          TIMEZONE: ${{ vars.TIMEZONE || 'Asia/Jakarta' }}
+          OUTPUT_DIR: ./output
+        run: npm run generate
+
+      - name: Publish to output branch
+        env:
+          TOKEN: ${{ secrets.GH_PAT || github.token }}
+        run: |
+          set -euo pipefail
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          PUBLISH_DIR=$(mktemp -d)
+          if git ls-remote --exit-code --heads origin output >/dev/null 2>&1; then
+            git clone --depth 1 --branch output "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PUBLISH_DIR"
+          else
+            git clone --depth 1 "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PUBLISH_DIR"
+            cd "$PUBLISH_DIR"
+            git checkout --orphan output
+            git rm -rf . >/dev/null 2>&1 || true
+            cd -
+          fi
+
+          cp output/summary.svg output/languages.svg output/activity.svg output/stats.json "$PUBLISH_DIR/"
+          cd "$PUBLISH_DIR"
+          git add summary.svg languages.svg activity.svg stats.json
+
+          if git diff --staged --quiet; then
+            echo "No card changes to publish."
+            exit 0
+          fi
+
+          git commit -m "chore: update analytics cards"
+          git push origin HEAD:output

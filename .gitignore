@@ -27,7 +27,6 @@ npm-debug.log*
 # Coverage
 coverage/
 
-# Output (generated SVGs committed via Actions on output branch)
-# Keep local output ignored; CI commits to output branch separately
-output/*.svg
+# Output (generated files published to the `output` branch by Actions)
+output/*
 !output/.gitkeep

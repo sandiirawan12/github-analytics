@@ -1,2 +1,2 @@
-// Analytics engine — commits, streaks, languages, etc. (Part 3)
-export {};
+export { computeAnalytics } from "./compute.js";
+export type { AnalyticsResult, LanguageStat, DayContribution } from "./types.js";
