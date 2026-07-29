@@ -4,8 +4,6 @@ import { computeAchievements, computeAnalytics } from "./analytics/index.js";
 import type { AnalyticsResult } from "./analytics/types.js";
 import { loadAppConfig } from "./config/env.js";
 import { loadFileConfig } from "./config/load.js";
-import type { AnalyticsFileConfig } from "./config/types.js";
-import { loadUsers } from "./config/users.js";
 import { fetchGitHubData, GitHubClient } from "./github/index.js";
 import { generateCards, writeCards } from "./svg/index.js";
 
@@ -27,64 +25,24 @@ async function loadStatsFromFile(filePath: string): Promise<AnalyticsResult> {
   return raw;
 }
 
-async function generateForUser(options: {
-  username: string;
-  token: string;
-  timezone: string;
-  outputRoot: string;
-  fileConfig: AnalyticsFileConfig;
-  fromStats: boolean;
-}): Promise<void> {
-  const { username, token, timezone, outputRoot, fileConfig, fromStats } = options;
-  const userDir = path.join(outputRoot, username.toLowerCase());
-
-  console.log(`\n→ ${username}`);
-  console.log(`  output: ${userDir}`);
-
-  let stats: AnalyticsResult;
-
-  if (fromStats) {
-    const statsPath = path.join(userDir, "stats.json");
-    console.log(`  loading ${statsPath}...`);
-    stats = await loadStatsFromFile(statsPath);
-  } else {
-    console.log("  fetching GitHub data...");
-    const client = new GitHubClient(token);
-    const data = await fetchGitHubData(client, username, timezone);
-    console.log("  computing analytics...");
-    stats = computeAnalytics(data);
-  }
-
-  console.log("  generating SVG cards...");
-  const cards = generateCards(stats, fileConfig);
-  const written = await writeCards(userDir, cards);
-  const statsPath = path.join(userDir, "stats.json");
-  await writeFile(statsPath, `${JSON.stringify(stats, null, 2)}\n`, "utf8");
-
-  console.log(
-    `  commits=${stats.commits.total} streak=${stats.streak.current}/${stats.streak.longest} cards=${written.length}`,
-  );
-}
-
 async function main(): Promise<void> {
   const fromStats = process.argv.includes("--from-stats");
-  const onlyArg = process.argv.find((arg) => arg.startsWith("--user="));
-  const onlyUser = onlyArg?.slice("--user=".length).trim().toLowerCase();
-
   const file = await loadFileConfig();
+
   const config = fromStats
     ? {
         githubToken: "",
-        githubUsername: "",
+        githubUsername: file.username?.trim() || "local",
         timezone: process.env.TIMEZONE?.trim() || file.timezone,
         outputDir: process.env.OUTPUT_DIR?.trim() || file.output_dir,
         file,
       }
     : await loadAppConfig();
 
-  let users = await loadUsers(process.cwd(), process.env.GITHUB_REPOSITORY_OWNER);
-  if (onlyUser) {
-    users = [onlyUser];
+  if (!fromStats && !config.githubUsername) {
+    throw new Error(
+      "Missing GitHub username. Set `username` in analytics.config.yml or GITHUB_USERNAME / leave empty on Actions to use repo owner.",
+    );
   }
 
   console.log("GitHub Analytics");
@@ -92,34 +50,50 @@ async function main(): Promise<void> {
   console.log(`Mode     : ${fromStats ? "render-from-stats" : "fetch"}`);
   console.log(`Theme    : ${config.file.theme}`);
   console.log(`Cards    : ${config.file.cards.join(", ")}`);
-  console.log(`Users    : ${users.join(", ")}`);
-  console.log(`Output   : ${config.outputDir}/{username}/`);
+  console.log(`Username : ${config.githubUsername}`);
   console.log(`Timezone : ${config.timezone}`);
+  console.log(`Output   : ${config.outputDir}`);
+  console.log("");
 
-  const failed: string[] = [];
+  let stats: AnalyticsResult;
 
-  for (const username of users) {
-    try {
-      await generateForUser({
-        username,
-        token: config.githubToken,
-        timezone: config.timezone,
-        outputRoot: config.outputDir,
-        fileConfig: config.file,
-        fromStats,
-      });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.error(`  ERROR for ${username}: ${message}`);
-      failed.push(username);
-    }
+  if (fromStats) {
+    const statsPath = path.join(config.outputDir, "stats.json");
+    console.log(`Loading ${statsPath}...`);
+    stats = await loadStatsFromFile(statsPath);
+  } else {
+    console.log("Fetching GitHub data...");
+    const client = new GitHubClient(config.githubToken);
+    const data = await fetchGitHubData(client, config.githubUsername, config.timezone);
+    console.log("Computing analytics...");
+    stats = computeAnalytics(data);
   }
 
-  if (failed.length > 0) {
-    throw new Error(`Failed generating cards for: ${failed.join(", ")}`);
-  }
+  console.log("Generating SVG cards...");
+  const cards = generateCards(stats, config.file);
+  const written = await writeCards(config.outputDir, cards);
 
-  console.log("\nDone.");
+  const statsPath = path.join(config.outputDir, "stats.json");
+  await writeFile(statsPath, `${JSON.stringify(stats, null, 2)}\n`, "utf8");
+
+  console.log("");
+  console.log("Summary");
+  console.log(
+    `  Commits        : ${stats.commits.total} (public ${stats.commits.public}, private ${stats.commits.private})`,
+  );
+  console.log(
+    `  Repositories   : ${stats.repositories.total} (public ${stats.repositories.public}, private ${stats.repositories.private})`,
+  );
+  console.log(`  Followers      : ${stats.followers} following ${stats.following}`);
+  console.log(`  Stars / Forks  : ${stats.stars} / ${stats.forks}`);
+  console.log(
+    `  Streak         : current ${stats.streak.current}, longest ${stats.streak.longest}`,
+  );
+  console.log("");
+  console.log("Wrote:");
+  for (const filePath of [...written, statsPath]) {
+    console.log(`  - ${filePath}`);
+  }
 }
 
 main().catch((error: unknown) => {
