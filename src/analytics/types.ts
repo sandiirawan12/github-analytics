@@ -58,4 +58,12 @@ export interface AnalyticsResult {
     mostActiveWeekday: string;
     mostActiveHour: number | null;
   };
+  achievements: Achievement[];
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  unlocked: boolean;
 }

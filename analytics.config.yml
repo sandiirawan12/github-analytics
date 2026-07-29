@@ -2,12 +2,17 @@ theme: github
 
 timezone: Asia/Jakarta
 
-# Core cards only — keep README embeds short and fast
+# All cards referenced by the profile README embed
 cards:
   - dashboard
+  - stats
+  - streak
   - activity
   - languages
+  - productive-time
   - repositories
+  - contributions
+  - achievements
 
 show:
   private: true

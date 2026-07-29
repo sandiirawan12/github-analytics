@@ -1,6 +1,15 @@
 export type ThemeName = "github" | "tokyonight" | "dracula" | "catppuccin" | "nord";
 
-export type CardName = "dashboard" | "activity" | "languages" | "repositories";
+export type CardName =
+  | "dashboard"
+  | "stats"
+  | "streak"
+  | "activity"
+  | "languages"
+  | "productive-time"
+  | "repositories"
+  | "contributions"
+  | "achievements";
 
 export interface ShowOptions {
   private: boolean;
@@ -18,10 +27,22 @@ export interface AnalyticsFileConfig {
   output_dir: string;
 }
 
+export const ALL_CARDS: CardName[] = [
+  "dashboard",
+  "stats",
+  "streak",
+  "activity",
+  "languages",
+  "productive-time",
+  "repositories",
+  "contributions",
+  "achievements",
+];
+
 export const DEFAULT_FILE_CONFIG: AnalyticsFileConfig = {
   theme: "github",
   timezone: "Asia/Jakarta",
-  cards: ["dashboard", "activity", "languages", "repositories"],
+  cards: [...ALL_CARDS],
   show: {
     private: true,
     stars: true,

@@ -1,30 +1,38 @@
 # GitHub Analytics
 
-Self-hosted GitHub profile analytics — **dashboard-first** SVG cards, multi-theme, public + private stats via PAT. No third-party widget service.
+Self-hosted GitHub profile analytics SVGs — themes, YAML config, public + private stats via PAT.
 
-## Design
+## Cards
 
-Instead of flooding a README with 15+ small SVGs, this project generates **four core cards**:
-
-| Card         | File               | Contents                                                                  |
-| ------------ | ------------------ | ------------------------------------------------------------------------- |
-| Dashboard    | `dashboard.svg`    | Commits, streak, repos, stars, PRs, issues, followers, productive time, … |
-| Activity     | `activity.svg`     | Contribution heatmap + monthly + weekday trends                           |
-| Languages    | `languages.svg`    | Top languages                                                             |
-| Repositories | `repositories.svg` | Repo totals + top repositories                                            |
+| File                  | Contents                     |
+| --------------------- | ---------------------------- |
+| `dashboard.svg`       | Full overview metrics        |
+| `stats.svg`           | Compact stats list           |
+| `streak.svg`          | Current / longest streak     |
+| `activity.svg`        | Heatmap + monthly + weekday  |
+| `languages.svg`       | Top languages                |
+| `productive-time.svg` | Hours + weekday productivity |
+| `repositories.svg`    | Repo totals + top repos      |
+| `contributions.svg`   | Monthly contributions        |
+| `achievements.svg`    | Unlocked / locked badges     |
 
 ## Configure
 
-Edit [`analytics.config.yml`](analytics.config.yml):
+[`analytics.config.yml`](analytics.config.yml):
 
 ```yaml
-theme: tokyonight # github | tokyonight | dracula | catppuccin | nord
+theme: github # github | tokyonight | dracula | catppuccin | nord
 
 cards:
   - dashboard
+  - stats
+  - streak
   - activity
   - languages
+  - productive-time
   - repositories
+  - contributions
+  - achievements
 
 show:
   private: true
@@ -38,37 +46,46 @@ show:
 
 ```bash
 cp .env.example .env
-# GITHUB_TOKEN + GITHUB_USERNAME
 npm install
 npm run generate
 ```
 
-Re-render from cached `output/stats.json`:
-
-```bash
-npm run render
-```
-
-## Embed in README (recommended)
+## Profile README embed
 
 ```md
-<img src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/dashboard.svg" />
+# 📊 GitHub Analytics
 
-<img src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/activity.svg" />
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/dashboard.svg" />
+</p>
 
-<img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/languages.svg" />
-<img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/repositories.svg" />
+<p align="center">
+  <img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/stats.svg" />
+  <img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/streak.svg" />
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/activity.svg" />
+</p>
+
+<p align="center">
+  <img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/languages.svg" />
+  <img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/productive-time.svg" />
+</p>
+
+<p align="center">
+  <img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/repositories.svg" />
+  <img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/contributions.svg" />
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/achievements.svg" />
+</p>
 ```
-
-Keep it to these four — fast to load, easy to scan.
 
 ## GitHub Actions
 
-Daily at **00:00 Asia/Jakarta**. Set secret `GH_PAT` (`repo` + `read:user`) for private stats. Cards publish to the `output` branch.
-
-## Themes
-
-`github` · `tokyonight` · `dracula` · `catppuccin` · `nord`
+Daily at **00:00 Asia/Jakarta**. Secret `GH_PAT` (`repo` + `read:user`) for private stats. Publishes to `output` branch.
 
 ## License
 

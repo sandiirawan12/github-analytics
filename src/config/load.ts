@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { parse as parseYaml } from "yaml";
 import {
+  ALL_CARDS,
   DEFAULT_FILE_CONFIG,
   type AnalyticsFileConfig,
   type CardName,
@@ -12,7 +13,7 @@ const CONFIG_CANDIDATES = ["analytics.config.yml", "analytics.config.yaml", "con
 
 const VALID_THEMES = new Set<ThemeName>(["github", "tokyonight", "dracula", "catppuccin", "nord"]);
 
-const VALID_CARDS = new Set<CardName>(["dashboard", "activity", "languages", "repositories"]);
+const VALID_CARDS = new Set<CardName>(ALL_CARDS);
 
 export async function loadFileConfig(cwd = process.cwd()): Promise<AnalyticsFileConfig> {
   for (const name of CONFIG_CANDIDATES) {
@@ -27,7 +28,11 @@ export async function loadFileConfig(cwd = process.cwd()): Promise<AnalyticsFile
     }
   }
 
-  return { ...DEFAULT_FILE_CONFIG, show: { ...DEFAULT_FILE_CONFIG.show } };
+  return {
+    ...DEFAULT_FILE_CONFIG,
+    cards: [...DEFAULT_FILE_CONFIG.cards],
+    show: { ...DEFAULT_FILE_CONFIG.show },
+  };
 }
 
 function normalizeConfig(input: Partial<AnalyticsFileConfig>): AnalyticsFileConfig {
@@ -43,7 +48,7 @@ function normalizeConfig(input: Partial<AnalyticsFileConfig>): AnalyticsFileConf
   );
 
   if (cards.length === 0) {
-    throw new Error("config.cards must include at least one valid card");
+    throw new Error(`config.cards must include at least one valid card: ${ALL_CARDS.join(", ")}`);
   }
 
   return {

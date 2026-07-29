@@ -1,5 +1,6 @@
 import type { FetchedGitHubData } from "../github/fetch.js";
 import { monthKey, mode, weekdayName } from "../utils/index.js";
+import { computeAchievements } from "./achievements.js";
 import { aggregateLanguages } from "./languages.js";
 import { computeStreaks } from "./streak.js";
 import type { AnalyticsResult } from "./types.js";
@@ -70,7 +71,7 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
       languageColor: repo.primaryLanguage?.color ?? null,
     }));
 
-  return {
+  const base = {
     username: data.login,
     generatedAt: new Date().toISOString(),
     followers: data.followers,
@@ -108,5 +109,10 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
       mostActiveWeekday,
       mostActiveHour: mode(data.eventHours),
     },
+  };
+
+  return {
+    ...base,
+    achievements: computeAchievements(base),
   };
 }

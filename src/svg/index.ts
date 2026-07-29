@@ -1,5 +1,10 @@
 export { generateCards, writeCards } from "./write.js";
 export { renderDashboardCard } from "./dashboard.js";
+export { renderStatsCard } from "./stats.js";
+export { renderStreakCard } from "./streak.js";
 export { renderActivityCard } from "./activity.js";
 export { renderLanguagesCard } from "./languages.js";
+export { renderProductiveTimeCard } from "./productive-time.js";
 export { renderRepositoriesCard } from "./repositories.js";
+export { renderContributionsCard } from "./contributions.js";
+export { renderAchievementsCard } from "./achievements.js";

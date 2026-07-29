@@ -1,2 +1,9 @@
 export { computeAnalytics } from "./compute.js";
-export type { AnalyticsResult, LanguageStat, DayContribution, TopRepository } from "./types.js";
+export { computeAchievements } from "./achievements.js";
+export type {
+  AnalyticsResult,
+  LanguageStat,
+  DayContribution,
+  TopRepository,
+  Achievement,
+} from "./types.js";

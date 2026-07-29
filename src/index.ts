@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { computeAnalytics } from "./analytics/index.js";
+import { computeAchievements, computeAnalytics } from "./analytics/index.js";
 import type { AnalyticsResult } from "./analytics/types.js";
 import { loadAppConfig } from "./config/env.js";
 import { loadFileConfig } from "./config/load.js";
@@ -17,6 +17,10 @@ async function loadStatsFromFile(filePath: string): Promise<AnalyticsResult> {
   if (raw.following === undefined) raw.following = 0;
   if (raw.activeDays === undefined) {
     raw.activeDays = raw.contributions.calendar.filter((d) => d.count > 0).length;
+  }
+  if (!raw.achievements?.length) {
+    const { achievements: _a, ...base } = raw;
+    raw.achievements = computeAchievements(base);
   }
   return raw;
 }
