@@ -1,11 +1,5 @@
-export { generateCards, writeCards, CARD_FILES } from "./write.js";
-export { renderSummaryCard } from "./summary.js";
-export { renderLanguagesCard } from "./languages.js";
-export { renderHeatmapCard } from "./heatmap.js";
-export { renderMonthlyCard } from "./monthly.js";
-export { renderWeekdayCard } from "./weekday.js";
-export { renderProductiveCard } from "./productive.js";
-export { renderStreakCard } from "./streak.js";
-export { renderCommitsCard } from "./commits.js";
-export { renderReposCard } from "./repos.js";
+export { generateCards, writeCards } from "./write.js";
+export { renderDashboardCard } from "./dashboard.js";
 export { renderActivityCard } from "./activity.js";
+export { renderLanguagesCard } from "./languages.js";
+export { renderRepositoriesCard } from "./repositories.js";

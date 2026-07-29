@@ -25,8 +25,11 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
 
   const byMonthMap = new Map<string, number>();
   const byWeekdayMap = new Map<string, number>();
+  let activeDays = 0;
 
   for (const day of data.contributionDays) {
+    if (day.contributionCount > 0) activeDays += 1;
+
     const month = monthKey(day.date);
     byMonthMap.set(month, (byMonthMap.get(month) ?? 0) + day.contributionCount);
 
@@ -54,9 +57,24 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
     count: hourCounts.get(hour) ?? 0,
   }));
 
+  const topRepositories = [...data.repositories]
+    .sort((a, b) => b.stargazerCount - a.stargazerCount || b.forkCount - a.forkCount)
+    .slice(0, 5)
+    .map((repo) => ({
+      name: repo.name,
+      nameWithOwner: repo.nameWithOwner,
+      isPrivate: repo.isPrivate,
+      stars: repo.stargazerCount,
+      forks: repo.forkCount,
+      language: repo.primaryLanguage?.name ?? null,
+      languageColor: repo.primaryLanguage?.color ?? null,
+    }));
+
   return {
     username: data.login,
     generatedAt: new Date().toISOString(),
+    followers: data.followers,
+    following: data.following,
     commits: {
       total: publicCommits + privateCommits,
       public: publicCommits,
@@ -71,6 +89,7 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
     forks,
     pullRequests: data.totalPullRequestContributions,
     issues: data.totalIssueContributions,
+    activeDays,
     streak: computeStreaks(data.contributionDays),
     contributions: {
       total: data.totalContributions,
@@ -84,6 +103,7 @@ export function computeAnalytics(data: FetchedGitHubData): AnalyticsResult {
       })),
     },
     languages: aggregateLanguages(data.repositories),
+    topRepositories,
     productive: {
       mostActiveWeekday,
       mostActiveHour: mode(data.eventHours),

@@ -11,9 +11,21 @@ export interface DayContribution {
   color: string;
 }
 
+export interface TopRepository {
+  name: string;
+  nameWithOwner: string;
+  isPrivate: boolean;
+  stars: number;
+  forks: number;
+  language: string | null;
+  languageColor: string | null;
+}
+
 export interface AnalyticsResult {
   username: string;
   generatedAt: string;
+  followers: number;
+  following: number;
   commits: {
     total: number;
     public: number;
@@ -28,6 +40,7 @@ export interface AnalyticsResult {
   forks: number;
   pullRequests: number;
   issues: number;
+  activeDays: number;
   streak: {
     current: number;
     longest: number;
@@ -40,6 +53,7 @@ export interface AnalyticsResult {
     calendar: DayContribution[];
   };
   languages: LanguageStat[];
+  topRepositories: TopRepository[];
   productive: {
     mostActiveWeekday: string;
     mostActiveHour: number | null;

@@ -1,56 +1,74 @@
 # GitHub Analytics
 
-Modern, fast GitHub profile analytics cards — public **and** private stats via Personal Access Token. Pure SVG output (no chart libraries), ready for README embedding.
+Self-hosted GitHub profile analytics — **dashboard-first** SVG cards, multi-theme, public + private stats via PAT. No third-party widget service.
 
-## Cards
+## Design
 
-| File             | Contents                                       |
-| ---------------- | ---------------------------------------------- |
-| `summary.svg`    | Metric grid (commits, streak, repos, stars, …) |
-| `languages.svg`  | Top languages with spaced bars                 |
-| `heatmap.svg`    | Contribution calendar (auto-fit, no overflow)  |
-| `monthly.svg`    | Contributions per month                        |
-| `weekday.svg`    | Contributions by weekday                       |
-| `productive.svg` | Productive hours + peak weekday                |
-| `streak.svg`     | Current vs longest streak                      |
-| `commits.svg`    | Public vs private commits                      |
-| `repos.svg`      | Repos, stars, forks, PRs, issues               |
-| `activity.svg`   | Alias of heatmap (compat)                      |
+Instead of flooding a README with 15+ small SVGs, this project generates **four core cards**:
+
+| Card         | File               | Contents                                                                  |
+| ------------ | ------------------ | ------------------------------------------------------------------------- |
+| Dashboard    | `dashboard.svg`    | Commits, streak, repos, stars, PRs, issues, followers, productive time, … |
+| Activity     | `activity.svg`     | Contribution heatmap + monthly + weekday trends                           |
+| Languages    | `languages.svg`    | Top languages                                                             |
+| Repositories | `repositories.svg` | Repo totals + top repositories                                            |
+
+## Configure
+
+Edit [`analytics.config.yml`](analytics.config.yml):
+
+```yaml
+theme: tokyonight # github | tokyonight | dracula | catppuccin | nord
+
+cards:
+  - dashboard
+  - activity
+  - languages
+  - repositories
+
+show:
+  private: true
+  stars: true
+  streak: true
+  productive_time: true
+  followers: true
+```
 
 ## Quick start
 
 ```bash
 cp .env.example .env
-# Set GITHUB_TOKEN and GITHUB_USERNAME
+# GITHUB_TOKEN + GITHUB_USERNAME
 npm install
 npm run generate
 ```
 
-Re-render cards from existing `output/stats.json` (no API call):
+Re-render from cached `output/stats.json`:
 
 ```bash
 npm run render
 ```
 
-## Embed in README
+## Embed in README (recommended)
 
 ```md
-![Summary](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/summary.svg)
-![Languages](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/languages.svg)
-![Heatmap](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/heatmap.svg)
-![Monthly](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/monthly.svg)
-![Weekday](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/weekday.svg)
-![Productive](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/productive.svg)
-![Streak](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/streak.svg)
-![Commits](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/commits.svg)
-![Repos](https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/repos.svg)
+<img src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/dashboard.svg" />
+
+<img src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/activity.svg" />
+
+<img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/languages.svg" />
+<img width="49%" src="https://raw.githubusercontent.com/sandiirawan12/github-analytics/output/repositories.svg" />
 ```
+
+Keep it to these four — fast to load, easy to scan.
 
 ## GitHub Actions
 
-Daily at **00:00 Asia/Jakarta**, plus manual/`main` source pushes. Publishes all SVGs to the **`output`** branch.
+Daily at **00:00 Asia/Jakarta**. Set secret `GH_PAT` (`repo` + `read:user`) for private stats. Cards publish to the `output` branch.
 
-Secret: `GH_PAT` (`repo` + `read:user`) for private stats.
+## Themes
+
+`github` · `tokyonight` · `dracula` · `catppuccin` · `nord`
 
 ## License
 

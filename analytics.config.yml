@@ -1,0 +1,19 @@
+theme: github
+
+timezone: Asia/Jakarta
+
+# Core cards only — keep README embeds short and fast
+cards:
+  - dashboard
+  - activity
+  - languages
+  - repositories
+
+show:
+  private: true
+  stars: true
+  streak: true
+  productive_time: true
+  followers: true
+
+output_dir: ./output

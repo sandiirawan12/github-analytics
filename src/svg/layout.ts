@@ -1,5 +1,5 @@
 import { escapeXml } from "../utils/index.js";
-import { theme } from "./theme.js";
+import type { Theme } from "../themes/index.js";
 
 export interface CardFrameOptions {
   width: number;
@@ -7,11 +7,12 @@ export interface CardFrameOptions {
   title: string;
   subtitle?: string;
   ariaLabel: string;
+  theme: Theme;
   body: string;
 }
 
 export function renderCardFrame(options: CardFrameOptions): string {
-  const { width, height, title, subtitle, ariaLabel, body } = options;
+  const { width, height, title, subtitle, ariaLabel, theme, body } = options;
   const px = theme.paddingX;
 
   const subtitleNode = subtitle

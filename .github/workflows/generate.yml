@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - "src/**"
+      - "analytics.config.yml"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/generate.yml"
@@ -34,7 +35,6 @@ jobs:
 
       - name: Generate SVG cards
         env:
-          # Prefer a PAT with repo + read:user so private stats are included.
           GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
           GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME || github.repository_owner }}
           TIMEZONE: ${{ vars.TIMEZONE || 'Asia/Jakarta' }}
@@ -60,9 +60,11 @@ jobs:
             cd -
           fi
 
+          # Replace published assets with the current core set only
+          rm -f "$PUBLISH_DIR"/*.svg "$PUBLISH_DIR"/stats.json
           cp output/*.svg output/stats.json "$PUBLISH_DIR/"
           cd "$PUBLISH_DIR"
-          git add *.svg stats.json
+          git add -A
 
           if git diff --staged --quiet; then
             echo "No card changes to publish."

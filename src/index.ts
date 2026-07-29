@@ -2,7 +2,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { computeAnalytics } from "./analytics/index.js";
 import type { AnalyticsResult } from "./analytics/types.js";
-import { loadConfig } from "./config/env.js";
+import { loadAppConfig } from "./config/env.js";
+import { loadFileConfig } from "./config/load.js";
 import { fetchGitHubData, GitHubClient } from "./github/index.js";
 import { generateCards, writeCards } from "./svg/index.js";
 
@@ -11,23 +12,34 @@ async function loadStatsFromFile(filePath: string): Promise<AnalyticsResult> {
   if (!raw.contributions.byHour) {
     raw.contributions.byHour = Array.from({ length: 24 }, (_, hour) => ({ hour, count: 0 }));
   }
+  if (!raw.topRepositories) raw.topRepositories = [];
+  if (raw.followers === undefined) raw.followers = 0;
+  if (raw.following === undefined) raw.following = 0;
+  if (raw.activeDays === undefined) {
+    raw.activeDays = raw.contributions.calendar.filter((d) => d.count > 0).length;
+  }
   return raw;
 }
 
 async function main(): Promise<void> {
   const fromStats = process.argv.includes("--from-stats");
+  const file = await loadFileConfig();
+
   const config = fromStats
     ? {
         githubToken: "",
         githubUsername: "local",
-        timezone: process.env.TIMEZONE?.trim() || "UTC",
-        outputDir: process.env.OUTPUT_DIR?.trim() || "./output",
+        timezone: process.env.TIMEZONE?.trim() || file.timezone,
+        outputDir: process.env.OUTPUT_DIR?.trim() || file.output_dir,
+        file,
       }
-    : loadConfig();
+    : await loadAppConfig();
 
   console.log("GitHub Analytics");
   console.log("================");
   console.log(`Mode     : ${fromStats ? "render-from-stats" : "fetch"}`);
+  console.log(`Theme    : ${config.file.theme}`);
+  console.log(`Cards    : ${config.file.cards.join(", ")}`);
   console.log(`Output   : ${config.outputDir}`);
   console.log("");
 
@@ -48,7 +60,7 @@ async function main(): Promise<void> {
   }
 
   console.log("Generating SVG cards...");
-  const cards = generateCards(stats);
+  const cards = generateCards(stats, config.file);
   const written = await writeCards(config.outputDir, cards);
 
   const statsPath = path.join(config.outputDir, "stats.json");
@@ -62,15 +74,15 @@ async function main(): Promise<void> {
   console.log(
     `  Repositories   : ${stats.repositories.total} (public ${stats.repositories.public}, private ${stats.repositories.private})`,
   );
+  console.log(`  Followers      : ${stats.followers} following ${stats.following}`);
   console.log(`  Stars / Forks  : ${stats.stars} / ${stats.forks}`);
   console.log(
     `  Streak         : current ${stats.streak.current}, longest ${stats.streak.longest}`,
   );
-  console.log(`  Top language   : ${stats.languages[0]?.name ?? "n/a"}`);
   console.log("");
   console.log("Wrote:");
-  for (const file of [...written, statsPath]) {
-    console.log(`  - ${file}`);
+  for (const filePath of [...written, statsPath]) {
+    console.log(`  - ${filePath}`);
   }
 }
 

@@ -10,6 +10,8 @@ import type {
 
 export interface FetchedGitHubData {
   login: string;
+  followers: number;
+  following: number;
   totalCommitContributions: number;
   restrictedContributionsCount: number;
   totalPullRequestContributions: number;
@@ -101,6 +103,8 @@ export async function fetchGitHubData(
 
   return {
     login: analytics.user.login,
+    followers: analytics.user.followers.totalCount,
+    following: analytics.user.following.totalCount,
     totalCommitContributions: analytics.user.contributionsCollection.totalCommitContributions,
     restrictedContributionsCount:
       analytics.user.contributionsCollection.restrictedContributionsCount,

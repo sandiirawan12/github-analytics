@@ -1,10 +1,10 @@
 import type { AnalyticsResult } from "../analytics/types.js";
+import type { Theme } from "../themes/index.js";
 import { clamp, escapeXml } from "../utils/index.js";
 import { renderCardFrame, truncateText } from "./layout.js";
-import { CARD_WIDTH, theme } from "./theme.js";
 
-export function renderLanguagesCard(stats: AnalyticsResult): string {
-  const width = CARD_WIDTH.md;
+export function renderLanguagesCard(stats: AnalyticsResult, theme: Theme): string {
+  const width = 520;
   const languages = stats.languages;
   const px = theme.paddingX;
   const nameWidth = 108;
@@ -21,9 +21,8 @@ export function renderLanguagesCard(stats: AnalyticsResult): string {
       : languages
           .map((lang, index) => {
             const y = top + index * rowHeight;
-            const barWidth = Math.round(
-              clamp((lang.percentage / 100) * barMaxWidth, 2, barMaxWidth) * 10,
-            ) / 10;
+            const barWidth =
+              Math.round(clamp((lang.percentage / 100) * barMaxWidth, 2, barMaxWidth) * 10) / 10;
             const name = truncateText(lang.name, 12);
             return `
     <text x="${px}" y="${y + 14}" fill="${theme.value}" font-size="13">${escapeXml(name)}</text>
@@ -39,6 +38,7 @@ export function renderLanguagesCard(stats: AnalyticsResult): string {
     title: "Top Languages",
     subtitle: `@${stats.username}`,
     ariaLabel: `Top languages for ${stats.username}`,
+    theme,
     body,
   });
 }

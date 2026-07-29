@@ -2,6 +2,12 @@ export const USER_CONTRIBUTIONS_QUERY = `
 query UserContributions($login: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $login) {
     login
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
     contributionsCollection(from: $from, to: $to) {
       totalCommitContributions
       restrictedContributionsCount
@@ -29,7 +35,7 @@ query UserRepos($login: String!, $cursor: String) {
       first: 100
       after: $cursor
       ownerAffiliations: OWNER
-      orderBy: { field: UPDATED_AT, direction: DESC }
+      orderBy: { field: STARGAZERS, direction: DESC }
     ) {
       totalCount
       pageInfo {
@@ -40,6 +46,7 @@ query UserRepos($login: String!, $cursor: String) {
         name
         nameWithOwner
         isPrivate
+        description
         stargazerCount
         forkCount
         primaryLanguage {

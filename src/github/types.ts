@@ -21,6 +21,7 @@ export interface RepoNode {
   name: string;
   nameWithOwner: string;
   isPrivate: boolean;
+  description: string | null;
   stargazerCount: number;
   forkCount: number;
   primaryLanguage: { name: string; color: string | null } | null;
@@ -42,6 +43,8 @@ export interface ContributionWeek {
 export interface UserAnalyticsData {
   user: {
     login: string;
+    followers: { totalCount: number };
+    following: { totalCount: number };
     contributionsCollection: {
       totalCommitContributions: number;
       restrictedContributionsCount: number;

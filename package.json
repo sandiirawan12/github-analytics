@@ -1,7 +1,7 @@
 {
   "name": "github-analytics",
   "version": "0.1.0",
-  "description": "Modern, fast GitHub profile analytics cards — public + private stats via PAT, SVG output for README embedding",
+  "description": "Dashboard-first GitHub analytics SVGs — themes, YAML config, public + private stats via PAT",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -30,7 +30,8 @@
     "node": ">=20"
   },
   "dependencies": {
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
