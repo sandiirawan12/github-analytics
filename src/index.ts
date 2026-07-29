@@ -5,7 +5,7 @@ import type { AnalyticsResult } from "./analytics/types.js";
 import { loadAppConfig } from "./config/env.js";
 import { loadFileConfig } from "./config/load.js";
 import { fetchGitHubData, GitHubClient } from "./github/index.js";
-import { generateCards, writeCards } from "./svg/index.js";
+import { generateCards, writeCards, writeEmbedMarkdown } from "./svg/index.js";
 
 async function loadStatsFromFile(filePath: string): Promise<AnalyticsResult> {
   const raw = JSON.parse(await readFile(filePath, "utf8")) as AnalyticsResult;
@@ -76,6 +76,19 @@ async function main(): Promise<void> {
   const statsPath = path.join(config.outputDir, "stats.json");
   await writeFile(statsPath, `${JSON.stringify(stats, null, 2)}\n`, "utf8");
 
+  const updatedAtPath = path.join(config.outputDir, "updated_at.txt");
+  await writeFile(updatedAtPath, `${stats.generatedAt}\n`, "utf8");
+
+  const repository =
+    process.env.GITHUB_REPOSITORY?.trim() ||
+    `${stats.username || config.githubUsername}/github-analytics`;
+  const embedPath = await writeEmbedMarkdown(
+    config.outputDir,
+    stats,
+    config.file.cards,
+    repository,
+  );
+
   console.log("");
   console.log("Summary");
   console.log(
@@ -89,9 +102,10 @@ async function main(): Promise<void> {
   console.log(
     `  Streak         : current ${stats.streak.current}, longest ${stats.streak.longest}`,
   );
+  console.log(`  Generated at   : ${stats.generatedAt}`);
   console.log("");
   console.log("Wrote:");
-  for (const filePath of [...written, statsPath]) {
+  for (const filePath of [...written, statsPath, updatedAtPath, embedPath]) {
     console.log(`  - ${filePath}`);
   }
 }

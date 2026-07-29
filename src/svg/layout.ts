@@ -12,28 +12,42 @@ export interface CardFrameOptions {
   generatedAt?: string;
 }
 
+function formatUpdatedLabel(iso: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return iso;
+  const month = date.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+  const day = date.getUTCDate();
+  const hours = String(date.getUTCHours()).padStart(2, "0");
+  const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+  return `Updated ${month} ${day}, ${hours}:${minutes} UTC`;
+}
+
 export function renderCardFrame(options: CardFrameOptions): string {
   const { width, height, title, subtitle, ariaLabel, theme, body, generatedAt } = options;
   const px = theme.paddingX;
+  const footerH = generatedAt ? 18 : 0;
+  const svgHeight = height + footerH;
 
   const subtitleNode = subtitle
     ? `<text x="${width - px}" y="30" fill="${theme.label}" font-size="12" text-anchor="end">${escapeXml(subtitle)}</text>`
     : "";
 
-  const stamp = generatedAt
-    ? `<!-- generated-at: ${escapeXml(generatedAt)} -->`
-    : `<!-- generated-at: ${new Date().toISOString()} -->`;
+  const stampIso = generatedAt ?? new Date().toISOString();
+  const footer = generatedAt
+    ? `<text x="${width - px}" y="${svgHeight - 6}" fill="${theme.label}" font-size="10" text-anchor="end" opacity="0.75">${escapeXml(formatUpdatedLabel(generatedAt))}</text>`
+    : "";
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-${stamp}
-<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(ariaLabel)}">
+<!-- generated-at: ${escapeXml(stampIso)} -->
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${svgHeight}" viewBox="0 0 ${width} ${svgHeight}" role="img" aria-label="${escapeXml(ariaLabel)}">
   <title>${escapeXml(title)}</title>
-  <rect width="${width}" height="${height}" rx="${theme.radius}" fill="${theme.background}" stroke="${theme.border}"/>
+  <rect width="${width}" height="${svgHeight}" rx="${theme.radius}" fill="${theme.background}" stroke="${theme.border}"/>
   <g font-family="${theme.fontFamily}">
     <text x="${px}" y="30" fill="${theme.title}" font-size="16" font-weight="700">${escapeXml(title)}</text>
     ${subtitleNode}
     <line x1="${px}" y1="${theme.headerHeight}" x2="${width - px}" y2="${theme.headerHeight}" stroke="${theme.border}"/>
     ${body}
+    ${footer}
   </g>
 </svg>
 `;

@@ -8,3 +8,4 @@ export { renderProductiveTimeCard } from "./productive-time.js";
 export { renderRepositoriesCard } from "./repositories.js";
 export { renderContributionsCard } from "./contributions.js";
 export { renderAchievementsCard } from "./achievements.js";
+export { renderEmbedMarkdown, writeEmbedMarkdown } from "./embed.js";
