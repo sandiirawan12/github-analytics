@@ -1,6 +1,6 @@
 {
   "username": "sandiirawan12",
-  "generatedAt": "2026-07-31T23:01:47.994Z",
+  "generatedAt": "2026-08-01T02:51:52.677Z",
   "followers": 2,
   "following": 2,
   "commits": {
@@ -19,16 +19,12 @@
   "issues": 0,
   "activeDays": 83,
   "streak": {
-    "current": 4,
+    "current": 0,
     "longest": 11
   },
   "contributions": {
     "total": 790,
     "byMonth": [
-      {
-        "month": "2025-07",
-        "count": 0
-      },
       {
         "month": "2025-08",
         "count": 0
@@ -76,6 +72,10 @@
       {
         "month": "2026-07",
         "count": 400
+      },
+      {
+        "month": "2026-08",
+        "count": 0
       }
     ],
     "byWeekday": [
@@ -207,11 +207,6 @@
       }
     ],
     "calendar": [
-      {
-        "date": "2025-07-31",
-        "count": 0,
-        "color": "#ebedf0"
-      },
       {
         "date": "2025-08-01",
         "count": 0,
@@ -2034,6 +2029,11 @@
       },
       {
         "date": "2026-07-31",
+        "count": 0,
+        "color": "#ebedf0"
+      },
+      {
+        "date": "2026-08-01",
         "count": 0,
         "color": "#ebedf0"
       }
