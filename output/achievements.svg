@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated-at: 2026-08-13T16:03:40.563Z -->
+<!-- generated-at: 2026-08-13T17:57:55.576Z -->
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="402" viewBox="0 0 760 402" role="img" aria-label="Achievements for sandiirawan12">
   <title>Achievements</title>
   <rect width="760" height="402" rx="8" fill="#0d1117" stroke="#30363d"/>
   <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
     <text x="24" y="30" fill="#e6edf3" font-size="16" font-weight="700">Achievements</text>
-    <text x="736" y="30" fill="#8b949e" font-size="12" text-anchor="end">7 / 15 unlocked</text>
+    <text x="736" y="30" fill="#8b949e" font-size="12" text-anchor="end">8 / 15 unlocked</text>
     <line x1="24" y1="52" x2="736" y2="52" stroke="#30363d"/>
     
     <rect x="24" y="68" width="350" height="64" rx="8" fill="#161b22" stroke="#30363d"/>
@@ -25,29 +25,29 @@
     <text x="360" y="168" fill="#3fb950" font-size="11" text-anchor="end">Unlocked</text>
     <rect x="386" y="144" width="350" height="64" rx="8" fill="#161b22" stroke="#30363d"/>
     <rect x="386" y="144" width="4" height="64" rx="2" fill="#3fb950"/>
-    <text x="402" y="168" fill="#e6edf3" font-size="14" font-weight="700">Week Warrior</text>
-    <text x="402" y="188" fill="#8b949e" font-size="11">Current or longest streak ≥ 7 days</text>
+    <text x="402" y="168" fill="#e6edf3" font-size="14" font-weight="700">Thousand Club</text>
+    <text x="402" y="188" fill="#8b949e" font-size="11">Reached 1,000 commits</text>
     <text x="722" y="168" fill="#3fb950" font-size="11" text-anchor="end">Unlocked</text>
     <rect x="24" y="220" width="350" height="64" rx="8" fill="#161b22" stroke="#30363d"/>
     <rect x="24" y="220" width="4" height="64" rx="2" fill="#3fb950"/>
-    <text x="40" y="244" fill="#e6edf3" font-size="14" font-weight="700">Polyglot</text>
-    <text x="40" y="264" fill="#8b949e" font-size="11">Uses 3+ languages</text>
+    <text x="40" y="244" fill="#e6edf3" font-size="14" font-weight="700">Week Warrior</text>
+    <text x="40" y="264" fill="#8b949e" font-size="11">Current or longest streak ≥ 7 days</text>
     <text x="360" y="244" fill="#3fb950" font-size="11" text-anchor="end">Unlocked</text>
     <rect x="386" y="220" width="350" height="64" rx="8" fill="#161b22" stroke="#30363d"/>
     <rect x="386" y="220" width="4" height="64" rx="2" fill="#3fb950"/>
-    <text x="402" y="244" fill="#e6edf3" font-size="14" font-weight="700">Repo Builder</text>
-    <text x="402" y="264" fill="#8b949e" font-size="11">Owns 5+ repositories</text>
+    <text x="402" y="244" fill="#e6edf3" font-size="14" font-weight="700">Polyglot</text>
+    <text x="402" y="264" fill="#8b949e" font-size="11">Uses 3+ languages</text>
     <text x="722" y="244" fill="#3fb950" font-size="11" text-anchor="end">Unlocked</text>
     <rect x="24" y="296" width="350" height="64" rx="8" fill="#161b22" stroke="#30363d"/>
     <rect x="24" y="296" width="4" height="64" rx="2" fill="#3fb950"/>
-    <text x="40" y="320" fill="#e6edf3" font-size="14" font-weight="700">Night Owl</text>
-    <text x="40" y="340" fill="#8b949e" font-size="11">Most productive between 22:00–05:00</text>
+    <text x="40" y="320" fill="#e6edf3" font-size="14" font-weight="700">Repo Builder</text>
+    <text x="40" y="340" fill="#8b949e" font-size="11">Owns 5+ repositories</text>
     <text x="360" y="320" fill="#3fb950" font-size="11" text-anchor="end">Unlocked</text>
-    <rect x="386" y="296" width="350" height="64" rx="8" fill="#0d1117" stroke="#30363d"/>
-    <rect x="386" y="296" width="4" height="64" rx="2" fill="#30363d"/>
-    <text x="402" y="320" fill="#8b949e" font-size="14" font-weight="700">Thousand Club</text>
-    <text x="402" y="340" fill="#8b949e" font-size="11">Reached 1,000 commits</text>
-    <text x="722" y="320" fill="#30363d" font-size="11" text-anchor="end">Locked</text>
-    <text x="736" y="396" fill="#8b949e" font-size="10" text-anchor="end" opacity="0.75">Updated Aug 13, 16:03 UTC</text>
+    <rect x="386" y="296" width="350" height="64" rx="8" fill="#161b22" stroke="#30363d"/>
+    <rect x="386" y="296" width="4" height="64" rx="2" fill="#3fb950"/>
+    <text x="402" y="320" fill="#e6edf3" font-size="14" font-weight="700">Night Owl</text>
+    <text x="402" y="340" fill="#8b949e" font-size="11">Most productive between 22:00–05:00</text>
+    <text x="722" y="320" fill="#3fb950" font-size="11" text-anchor="end">Unlocked</text>
+    <text x="736" y="396" fill="#8b949e" font-size="10" text-anchor="end" opacity="0.75">Updated Aug 13, 17:57 UTC</text>
   </g>
 </svg>
