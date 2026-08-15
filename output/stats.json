@@ -1,6 +1,6 @@
 {
   "username": "sandiirawan12",
-  "generatedAt": "2026-08-14T23:22:05.643Z",
+  "generatedAt": "2026-08-15T01:16:12.715Z",
   "followers": 2,
   "following": 2,
   "commits": {
@@ -207,11 +207,6 @@
       }
     ],
     "calendar": [
-      {
-        "date": "2025-08-14",
-        "count": 0,
-        "color": "#ebedf0"
-      },
       {
         "date": "2025-08-15",
         "count": 0,
@@ -2036,6 +2031,11 @@
         "date": "2026-08-14",
         "count": 5,
         "color": "#9be9a8"
+      },
+      {
+        "date": "2026-08-15",
+        "count": 0,
+        "color": "#ebedf0"
       }
     ]
   },
