@@ -1,16 +1,16 @@
 {
   "username": "sandiirawan12",
-  "generatedAt": "2026-08-30T15:10:49.789Z",
+  "generatedAt": "2026-08-30T19:04:50.377Z",
   "followers": 2,
   "following": 2,
   "commits": {
-    "total": 1093,
-    "public": 90,
-    "private": 1003
+    "total": 1107,
+    "public": 118,
+    "private": 989
   },
   "repositories": {
-    "total": 6,
-    "public": 6,
+    "total": 7,
+    "public": 7,
     "private": 0
   },
   "stars": 0,
@@ -23,7 +23,7 @@
     "longest": 11
   },
   "contributions": {
-    "total": 1098,
+    "total": 1113,
     "byMonth": [
       {
         "month": "2025-08",
@@ -75,7 +75,7 @@
       },
       {
         "month": "2026-08",
-        "count": 322
+        "count": 337
       }
     ],
     "byWeekday": [
@@ -105,7 +105,7 @@
       },
       {
         "day": "Sunday",
-        "count": 170
+        "count": 185
       }
     ],
     "byHour": [
@@ -167,7 +167,7 @@
       },
       {
         "hour": 14,
-        "count": 5
+        "count": 7
       },
       {
         "hour": 15,
@@ -203,7 +203,7 @@
       },
       {
         "hour": 23,
-        "count": 0
+        "count": 1
       }
     ],
     "calendar": [
@@ -2029,8 +2029,8 @@
       },
       {
         "date": "2026-08-30",
-        "count": 16,
-        "color": "#9be9a8"
+        "count": 31,
+        "color": "#40c463"
       }
     ]
   },
@@ -2039,31 +2039,31 @@
       "name": "TypeScript",
       "color": "#3178c6",
       "size": 205487,
-      "percentage": 52.6
+      "percentage": 50.1
     },
     {
       "name": "PHP",
       "color": "#4F5D95",
-      "size": 90590,
-      "percentage": 23.2
+      "size": 92926,
+      "percentage": 22.7
     },
     {
       "name": "JavaScript",
       "color": "#f1e05a",
-      "size": 63946,
-      "percentage": 16.4
+      "size": 71858,
+      "percentage": 17.5
     },
     {
       "name": "CSS",
       "color": "#663399",
-      "size": 25148,
-      "percentage": 6.4
+      "size": 30443,
+      "percentage": 7.4
     },
     {
       "name": "Others",
       "color": "#8b949e",
-      "size": 5624,
-      "percentage": 1.4
+      "size": 9327,
+      "percentage": 2.3
     }
   ],
   "topRepositories": [
@@ -2086,6 +2086,15 @@
       "languageColor": "#3178c6"
     },
     {
+      "name": "all-commit",
+      "nameWithOwner": "sandiirawan12/all-commit",
+      "isPrivate": false,
+      "stars": 0,
+      "forks": 0,
+      "language": "CSS",
+      "languageColor": "#663399"
+    },
+    {
       "name": "test-solutech-sandi",
       "nameWithOwner": "sandiirawan12/test-solutech-sandi",
       "isPrivate": false,
@@ -2097,15 +2106,6 @@
     {
       "name": "TestUsahaKreatif_Leads",
       "nameWithOwner": "sandiirawan12/TestUsahaKreatif_Leads",
-      "isPrivate": false,
-      "stars": 0,
-      "forks": 0,
-      "language": "TypeScript",
-      "languageColor": "#3178c6"
-    },
-    {
-      "name": "TestKontenComKasbon",
-      "nameWithOwner": "sandiirawan12/TestKontenComKasbon",
       "isPrivate": false,
       "stars": 0,
       "forks": 0,
