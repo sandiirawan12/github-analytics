@@ -1,29 +1,29 @@
 {
   "username": "sandiirawan12",
-  "generatedAt": "2026-10-20T22:13:11.148Z",
+  "generatedAt": "2026-10-21T01:20:58.481Z",
   "followers": 2,
   "following": 2,
   "commits": {
-    "total": 940,
-    "public": 120,
+    "total": 902,
+    "public": 82,
     "private": 820
   },
   "repositories": {
-    "total": 7,
-    "public": 7,
+    "total": 4,
+    "public": 4,
     "private": 0
   },
   "stars": 0,
   "forks": 0,
   "pullRequests": 0,
   "issues": 0,
-  "activeDays": 77,
+  "activeDays": 73,
   "streak": {
-    "current": 0,
+    "current": 1,
     "longest": 11
   },
   "contributions": {
-    "total": 946,
+    "total": 905,
     "byMonth": [
       {
         "month": "2025-10",
@@ -59,15 +59,15 @@
       },
       {
         "month": "2026-06",
-        "count": 48
+        "count": 35
       },
       {
         "month": "2026-07",
-        "count": 364
+        "count": 347
       },
       {
         "month": "2026-08",
-        "count": 339
+        "count": 300
       },
       {
         "month": "2026-09",
@@ -75,13 +75,13 @@
       },
       {
         "month": "2026-10",
-        "count": 0
+        "count": 28
       }
     ],
     "byWeekday": [
       {
         "day": "Monday",
-        "count": 137
+        "count": 131
       },
       {
         "day": "Tuesday",
@@ -89,7 +89,7 @@
       },
       {
         "day": "Wednesday",
-        "count": 137
+        "count": 163
       },
       {
         "day": "Thursday",
@@ -101,11 +101,11 @@
       },
       {
         "day": "Saturday",
-        "count": 44
+        "count": 20
       },
       {
         "day": "Sunday",
-        "count": 185
+        "count": 148
       }
     ],
     "byHour": [
@@ -139,7 +139,7 @@
       },
       {
         "hour": 7,
-        "count": 0
+        "count": 1
       },
       {
         "hour": 8,
@@ -207,11 +207,6 @@
       }
     ],
     "calendar": [
-      {
-        "date": "2025-10-20",
-        "count": 0,
-        "color": "#ebedf0"
-      },
       {
         "date": "2025-10-21",
         "count": 0,
@@ -1464,13 +1459,13 @@
       },
       {
         "date": "2026-06-28",
-        "count": 9,
-        "color": "#9be9a8"
+        "count": 0,
+        "color": "#ebedf0"
       },
       {
         "date": "2026-06-29",
-        "count": 4,
-        "color": "#9be9a8"
+        "count": 0,
+        "color": "#ebedf0"
       },
       {
         "date": "2026-06-30",
@@ -1479,8 +1474,8 @@
       },
       {
         "date": "2026-07-01",
-        "count": 2,
-        "color": "#9be9a8"
+        "count": 0,
+        "color": "#ebedf0"
       },
       {
         "date": "2026-07-02",
@@ -1564,12 +1559,12 @@
       },
       {
         "date": "2026-07-18",
-        "count": 11,
-        "color": "#9be9a8"
+        "count": 0,
+        "color": "#ebedf0"
       },
       {
         "date": "2026-07-19",
-        "count": 114,
+        "count": 110,
         "color": "#216e39"
       },
       {
@@ -1774,18 +1769,18 @@
       },
       {
         "date": "2026-08-29",
-        "count": 18,
+        "count": 5,
         "color": "#9be9a8"
       },
       {
         "date": "2026-08-30",
-        "count": 31,
-        "color": "#40c463"
+        "count": 7,
+        "color": "#9be9a8"
       },
       {
         "date": "2026-08-31",
-        "count": 2,
-        "color": "#9be9a8"
+        "count": 0,
+        "color": "#ebedf0"
       },
       {
         "date": "2026-09-01",
@@ -2036,6 +2031,11 @@
         "date": "2026-10-20",
         "count": 0,
         "color": "#ebedf0"
+      },
+      {
+        "date": "2026-10-21",
+        "count": 28,
+        "color": "#40c463"
       }
     ]
   },
@@ -2043,43 +2043,37 @@
     {
       "name": "TypeScript",
       "color": "#3178c6",
-      "size": 205487,
-      "percentage": 50.1
-    },
-    {
-      "name": "PHP",
-      "color": "#4F5D95",
-      "size": 92926,
-      "percentage": 22.7
-    },
-    {
-      "name": "JavaScript",
-      "color": "#f1e05a",
-      "size": 71858,
-      "percentage": 17.5
+      "size": 157412,
+      "percentage": 90.7
     },
     {
       "name": "CSS",
       "color": "#663399",
-      "size": 30443,
-      "percentage": 7.4
+      "size": 6216,
+      "percentage": 3.6
     },
     {
-      "name": "Others",
-      "color": "#8b949e",
-      "size": 9327,
-      "percentage": 2.3
+      "name": "HTML",
+      "color": "#e34c26",
+      "size": 5148,
+      "percentage": 3
+    },
+    {
+      "name": "JavaScript",
+      "color": "#f1e05a",
+      "size": 4808,
+      "percentage": 2.8
     }
   ],
   "topRepositories": [
     {
-      "name": "moc-restoran",
-      "nameWithOwner": "sandiirawan12/moc-restoran",
+      "name": "Test_Sandi_TJMonitoring",
+      "nameWithOwner": "sandiirawan12/Test_Sandi_TJMonitoring",
       "isPrivate": false,
       "stars": 0,
       "forks": 0,
-      "language": "PHP",
-      "languageColor": "#4F5D95"
+      "language": "TypeScript",
+      "languageColor": "#3178c6"
     },
     {
       "name": "github-analytics",
@@ -2100,27 +2094,18 @@
       "languageColor": "#663399"
     },
     {
-      "name": "test-solutech-sandi",
-      "nameWithOwner": "sandiirawan12/test-solutech-sandi",
+      "name": "sandiirawan12",
+      "nameWithOwner": "sandiirawan12/sandiirawan12",
       "isPrivate": false,
       "stars": 0,
       "forks": 0,
-      "language": "TypeScript",
-      "languageColor": "#3178c6"
-    },
-    {
-      "name": "TestUsahaKreatif_Leads",
-      "nameWithOwner": "sandiirawan12/TestUsahaKreatif_Leads",
-      "isPrivate": false,
-      "stars": 0,
-      "forks": 0,
-      "language": "TypeScript",
-      "languageColor": "#3178c6"
+      "language": null,
+      "languageColor": null
     }
   ],
   "productive": {
     "mostActiveWeekday": "Tuesday",
-    "mostActiveHour": null
+    "mostActiveHour": 7
   },
   "achievements": [
     {
@@ -2181,7 +2166,7 @@
       "id": "repo-builder",
       "title": "Repo Builder",
       "description": "Owns 5+ repositories",
-      "unlocked": true
+      "unlocked": false
     },
     {
       "id": "pr-shipper",
@@ -2211,7 +2196,7 @@
       "id": "early-bird",
       "title": "Early Bird",
       "description": "Most productive between 05:00–09:00",
-      "unlocked": false
+      "unlocked": true
     }
   ]
 }
